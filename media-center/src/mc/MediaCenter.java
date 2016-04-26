@@ -5,12 +5,17 @@
  */
 package mc;
 
+import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
+import mc.music.MusicAlbum;
+import mc.music.MusicArtist;
+import mc.video.Video;
 
 /**
- *
- * @author i22balur
+ * Main class of the system
+ * 
+ * @author Rafael Barbudo Lunar
  */
 public class MediaCenter extends javax.swing.JFrame {
 
@@ -18,13 +23,18 @@ public class MediaCenter extends javax.swing.JFrame {
      * Creates new form MediaCenter
      */
     public MediaCenter() {
+                
+        // Init the components
         initComponents();
+        
+        // Set the application icon
         setIconImage(Toolkit.getDefaultToolkit().getImage((getClass().getResource("icon.png"))));
         
-        ventana.removeAll();
-        ventana.add(principal);
-        ventana.repaint();
-        ventana.revalidate();
+        // Set the main view
+        window.removeAll();
+        window.add(main);
+        window.repaint();
+        window.revalidate();
     }
 
     /**
@@ -36,87 +46,32 @@ public class MediaCenter extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ventana = new javax.swing.JPanel();
-        principal = new javax.swing.JPanel();
-        principal1 = new mc.Principal();
-        music = new javax.swing.JPanel();
-        musicArtist1 = new music.MusicArtist();
-        video = new javax.swing.JPanel();
-        image = new javax.swing.JPanel();
+        window = new javax.swing.JPanel();
+        main = new mc.Principal();
+        musicArtists = new mc.music.MusicArtist();
+        video = new mc.video.Video();
+        musicAlbum = new mc.music.MusicAlbum();
+        myImage = new mc.image.MyImage();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Media Center");
 
-        ventana.setLayout(new java.awt.CardLayout());
-
-        javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
-        principal.setLayout(principalLayout);
-        principalLayout.setHorizontalGroup(
-            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principal1, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
-        );
-        principalLayout.setVerticalGroup(
-            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principal1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
-        );
-
-        ventana.add(principal, "card5");
-
-        javax.swing.GroupLayout musicLayout = new javax.swing.GroupLayout(music);
-        music.setLayout(musicLayout);
-        musicLayout.setHorizontalGroup(
-            musicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(musicLayout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(musicArtist1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(349, Short.MAX_VALUE))
-        );
-        musicLayout.setVerticalGroup(
-            musicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(musicLayout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(musicArtist1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-
-        ventana.add(music, "card4");
-        music.getAccessibleContext().setAccessibleName("");
-
-        javax.swing.GroupLayout videoLayout = new javax.swing.GroupLayout(video);
-        video.setLayout(videoLayout);
-        videoLayout.setHorizontalGroup(
-            videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        videoLayout.setVerticalGroup(
-            videoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
-
-        ventana.add(video, "card3");
-
-        javax.swing.GroupLayout imageLayout = new javax.swing.GroupLayout(image);
-        image.setLayout(imageLayout);
-        imageLayout.setHorizontalGroup(
-            imageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        imageLayout.setVerticalGroup(
-            imageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
-
-        ventana.add(image, "card2");
+        window.setLayout(new java.awt.CardLayout());
+        window.add(main, "card6");
+        window.add(musicArtists, "card4");
+        window.add(video, "card5");
+        window.add(musicAlbum, "card5");
+        window.add(myImage, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ventana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(window, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ventana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(window, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -158,29 +113,43 @@ public class MediaCenter extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel image;
-    private javax.swing.JPanel music;
-    private music.MusicArtist musicArtist1;
-    private javax.swing.JPanel principal;
-    private mc.Principal principal1;
-    private javax.swing.JPanel ventana;
-    private javax.swing.JPanel video;
+    private mc.Principal main;
+    private mc.music.MusicAlbum musicAlbum;
+    private mc.music.MusicArtist musicArtists;
+    private mc.image.MyImage myImage;
+    private mc.video.Video video;
+    private javax.swing.JPanel window;
     // End of variables declaration//GEN-END:variables
 
-    public JPanel getVentana() {
-        return ventana;
+    public JPanel getWindow() {
+        return window;
     }
 
-    public void setVentana(JPanel ventana) {
-        this.ventana = ventana;
+    public void setWindow(JPanel window) {
+        this.window = window;
+    }
+    
+    public JPanel getMusicArtists() {
+        return musicArtists;
+    }
+    
+    public JPanel getVideo() {
+        return video;
     }
 
-    public JPanel getPrincipal() {
-        return principal;
+    public JPanel getMain() {
+        return main;
+    }
+
+    public JPanel getMusicAlbum() {
+        return musicAlbum;
     }
     
-    public JPanel getMusic() {
-        return music;
+    public void setMusicAlbum(MusicAlbum musicAlbum) {
+        this.musicAlbum = musicAlbum;
     }
     
+    public JPanel getMyImage() {
+        return myImage;
+    }
 }

@@ -5,14 +5,13 @@
  */
 package mc;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import music.MusicArtist;
 
 /**
  *
@@ -24,13 +23,30 @@ public class Principal extends javax.swing.JPanel {
      * Creates new form Principal
      */
     public Principal() {
+        
+        // Set initial language
+        Locale.setDefault(es);
+        
         background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("wallpaper.jpg")))).getImage();
         initComponents();
         
         // Resize Icons
-        Image newimg = ((ImageIcon)music.getIcon()).getImage();
-        newimg = newimg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
-        music.setIcon(new ImageIcon(newimg));
+        Image musicImg = ((ImageIcon)music.getIcon()).getImage();
+        musicImg = musicImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        music.setIcon(new ImageIcon(musicImg));
+
+        Image videoImg = ((ImageIcon)video.getIcon()).getImage();
+        videoImg = videoImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        video.setIcon(new ImageIcon(videoImg)); 
+        
+        Image imageImg = ((ImageIcon)image.getIcon()).getImage();
+        imageImg = imageImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        image.setIcon(new ImageIcon(imageImg)); 
+        
+        Image languageImg = ((ImageIcon)language.getIcon()).getImage();
+        languageImg = languageImg.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH ) ;  
+        language.setIcon(new ImageIcon(languageImg)); 
+        
     }
 
     /**
@@ -43,9 +59,16 @@ public class Principal extends javax.swing.JPanel {
     private void initComponents() {
 
         music = new javax.swing.JButton();
+        video = new javax.swing.JButton();
+        image = new javax.swing.JButton();
+        imageString = new javax.swing.JLabel();
+        musicString = new javax.swing.JLabel();
+        videoString = new javax.swing.JLabel();
+        language = new javax.swing.JButton();
 
         setBorder(null);
         setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(960, 540));
 
         music.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/music.png"))); // NOI18N
         music.setContentAreaFilled(false);
@@ -55,16 +78,54 @@ public class Principal extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 musicMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                musicMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                musicMouseEntered(evt);
+        });
+
+        video.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/video.png"))); // NOI18N
+        video.setContentAreaFilled(false);
+        video.setPreferredSize(new java.awt.Dimension(120, 120));
+        video.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoMouseClicked(evt);
             }
         });
-        music.addActionListener(new java.awt.event.ActionListener() {
+
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/image.png"))); // NOI18N
+        image.setContentAreaFilled(false);
+        image.setPreferredSize(new java.awt.Dimension(120, 120));
+        image.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageMouseClicked(evt);
+            }
+        });
+
+        imageString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        imageString.setForeground(new java.awt.Color(254, 254, 254));
+        imageString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("mc/Bundle"); // NOI18N
+        imageString.setText(bundle.getString("Principal.imageString.text")); // NOI18N
+
+        musicString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        musicString.setForeground(new java.awt.Color(254, 254, 254));
+        musicString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        musicString.setText(bundle.getString("Principal.musicString.text")); // NOI18N
+
+        videoString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        videoString.setForeground(new java.awt.Color(254, 254, 254));
+        videoString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        videoString.setText(bundle.getString("Principal.videoString.text")); // NOI18N
+
+        language.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/spanish.png"))); // NOI18N
+        language.setText(bundle.getString("Principal.language.text")); // NOI18N
+        language.setContentAreaFilled(false);
+        language.setPreferredSize(new java.awt.Dimension(60, 60));
+        language.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                languageMouseClicked(evt);
+            }
+        });
+        language.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                musicActionPerformed(evt);
+                languageActionPerformed(evt);
             }
         });
 
@@ -73,56 +134,122 @@ public class Principal extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(701, Short.MAX_VALUE))
+                .addGap(0, 171, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(musicString, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(94, 94, 94)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(125, 125, 125)
+                                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(103, 103, 103)
+                                .addComponent(imageString, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(147, 147, 147))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
-                .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(182, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(musicString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imageString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65)
+                .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void musicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseClicked
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
-        topFrame.getVentana().removeAll();
-        topFrame.getVentana().add(topFrame.getMusic());
-        topFrame.getVentana().repaint();
-        topFrame.getVentana().revalidate();
+        topFrame.getWindow().removeAll();
+        topFrame.getWindow().add(topFrame.getMusicArtists());
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
     }//GEN-LAST:event_musicMouseClicked
 
-    private void musicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_musicActionPerformed
+    private void languageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_musicActionPerformed
+    }//GEN-LAST:event_languageActionPerformed
 
-    private void musicMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseEntered
-        music.setBackground(Color.GREEN);
-    }//GEN-LAST:event_musicMouseEntered
+    private void languageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_languageMouseClicked
+                
+        if (Locale.getDefault() == es) {
+            Locale.setDefault(en);
+            language.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/english.png")));
+            Image languageImg = ((ImageIcon)language.getIcon()).getImage();
+        }
+        else {
+            Locale.setDefault(es);
+            language.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/spanish.png")));
+        }
+        // Change icon size
+        Image languageImg = ((ImageIcon)language.getIcon()).getImage();
+        languageImg = languageImg.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH ) ;  
+        language.setIcon(new ImageIcon(languageImg));
+        
+        // Change language
+        ResourceBundle rb = ResourceBundle.getBundle("mc/Bundle",Locale.getDefault());      
+        changeLanguage(rb);
+    }//GEN-LAST:event_languageMouseClicked
 
-    private void musicMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseExited
-        music.setBackground(Color.RED);
-    }//GEN-LAST:event_musicMouseExited
+    private void videoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoMouseClicked
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        topFrame.getWindow().removeAll();
+        topFrame.getWindow().add(topFrame.getVideo());
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
+    }//GEN-LAST:event_videoMouseClicked
+
+    private void imageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseClicked
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        topFrame.getWindow().removeAll();
+        topFrame.getWindow().add(topFrame.getMyImage());
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
+    }//GEN-LAST:event_imageMouseClicked
 
     
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
-        //ImageIcon imageIcon = new ImageIcon("wallpaper.jpg"); // load the image to a imageIcon
-        //Image image = imageIcon.getImage(); // transform it 
-        //Image newimg = image.getScaledInstance(this.getWidth(), this.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        //imageIcon = new ImageIcon(newimg);  // transform it back  
-        //jLabel1.setIcon(imageIcon);
     }
 
-    // Variables propias
+    public void changeLanguage (ResourceBundle rb) {
+        imageString.setText(rb.getString("Principal.imageString.text"));
+        videoString.setText(rb.getString("Principal.videoString.text"));
+        musicString.setText(rb.getString("Principal.musicString.text"));
+    }
+    
+    // Custom variables
     Image background;
-    // Fin variables propias
-    
-    
+    Locale es = new Locale("es","ES");
+    Locale en = new Locale("en","GB");
+    // End of custom variables
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton image;
+    private javax.swing.JLabel imageString;
+    private javax.swing.JButton language;
     private javax.swing.JButton music;
+    private javax.swing.JLabel musicString;
+    private javax.swing.JButton video;
+    private javax.swing.JLabel videoString;
     // End of variables declaration//GEN-END:variables
 }
