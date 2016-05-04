@@ -13,6 +13,17 @@ import javax.swing.ImageIcon;
  */
 public class FilmInfo {
     
+    public FilmInfo() {
+        
+    }
+     
+    public FilmInfo(String name, String description, String photoPath) {
+        this.name = name;
+        this.description = description;
+        this.photo = new javax.swing.ImageIcon(getClass().getResource(photoPath));
+    }
+    
+    
     public String getName() {
         return name;
     }

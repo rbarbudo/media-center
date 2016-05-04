@@ -15,8 +15,6 @@ public class SongInfo {
         this.name = name;
         this.album = album;
     }
-
-    
     
     public void setAlbum(String album) {
         this.album = album;

@@ -9,12 +9,21 @@ import mc.music.data.InitializerMusic;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import mc.MediaCenter;
 import mc.Principal;
+
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /**
  *
@@ -97,6 +106,11 @@ public class MusicSong extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        songList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                songListMouseClicked(evt);
+            }
+        });
         songList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 songListMouseMoved(evt);
@@ -173,6 +187,55 @@ public class MusicSong extends javax.swing.JPanel {
             this.albumImage.setIcon(new ImageIcon(img)); 
         }
     }//GEN-LAST:event_songListMouseMoved
+
+    private void songListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songListMouseClicked
+        /*
+        int index = songList.locationToIndex(evt.getPoint());
+        String name = songList.getModel().getElementAt(index);
+        
+        try {
+            FileInputStream fis;
+            AdvancedPlayer player;
+            fis = new FileInputStream(
+                    "/home/i22balur/Runaway.mp3");
+            BufferedInputStream bis = new BufferedInputStream(fis);
+
+            player = new AdvancedPlayer(bis); // Llamada a constructor de la clase Player
+            player.play();          // Llamada al método play
+            
+            try {
+                Thread.sleep(1000);                 //10000 milliseconds is one second.
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            
+            player.stop();
+            
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        */
+        
+        
+        try {
+            FileInputStream fis;
+            fis = new FileInputStream(
+                    "/home/i22balur/Runaway.mp3");
+            //BufferedInputStream bis = new BufferedInputStream(fis);
+            Playing np;
+            np = new Playing();
+            np.createPlayer(fis);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JavaLayerException ex) {
+            Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+    }//GEN-LAST:event_songListMouseClicked
     
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);

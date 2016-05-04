@@ -27,7 +27,7 @@ public class Principal extends javax.swing.JPanel {
         // Set initial language
         Locale.setDefault(es);
         
-        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("wallpaper.jpg")))).getImage();
+        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
         initComponents();
         
         // Resize Icons
