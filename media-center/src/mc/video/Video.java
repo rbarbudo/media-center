@@ -8,7 +8,10 @@ package mc.video;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import mc.MediaCenter;
 import mc.video.data.InitializerVideo;
@@ -31,8 +34,20 @@ public class Video extends javax.swing.JPanel {
         
         // Resize Icons
         Image backImg = ((ImageIcon)back.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
+        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         back.setIcon(new ImageIcon(backImg));
+        
+        
+        // Initialize description
+        String name = videoList.getModel().getElementAt(0);
+        String description = mediaVideo.getVideoDescription(name);
+        ImageIcon photo = mediaVideo.getVideoPhoto(name);
+
+        this.description.setText(description);
+
+        Image img = ((ImageIcon)photo).getImage();
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
+        this.videoImage.setIcon(new ImageIcon(img));
     }
 
     /**
@@ -47,9 +62,11 @@ public class Video extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         videoList = new javax.swing.JList<>();
-        videoImage = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        infoVideo = new javax.swing.JPanel();
+        scrollDescription = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
+        videoImage = new javax.swing.JLabel();
+        labelFilm = new javax.swing.JLabel();
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
         back.setContentAreaFilled(false);
@@ -61,11 +78,11 @@ public class Video extends javax.swing.JPanel {
             }
         });
 
-        videoList.setBackground(java.awt.Color.gray);
+        videoList.setBackground(java.awt.Color.darkGray);
         videoList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
         videoList.setForeground(new java.awt.Color(254, 254, 254));
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Batman vs Superman", "El Señor de los anillos", "Iron Man" };
+            String[] strings = { "Batman vs Superman", "El Señor de los anillos", "Iron Man 3" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -76,46 +93,78 @@ public class Video extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(videoList);
 
-        videoImage.setPreferredSize(new java.awt.Dimension(65, 43));
+        infoVideo.setBackground(java.awt.Color.darkGray);
+        infoVideo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        scrollDescription.setBorder(new javax.swing.border.MatteBorder(null));
 
         description.setEditable(false);
         description.setBackground(java.awt.Color.darkGray);
         description.setColumns(20);
+        description.setFont(new java.awt.Font("Ubuntu Light", 3, 18)); // NOI18N
         description.setForeground(new java.awt.Color(254, 254, 254));
         description.setLineWrap(true);
         description.setRows(5);
+        description.setAutoscrolls(false);
         description.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setViewportView(description);
+        description.setDisabledTextColor(new java.awt.Color(254, 254, 254));
+        description.setFocusable(false);
+        scrollDescription.setViewportView(description);
+
+        videoImage.setPreferredSize(new java.awt.Dimension(65, 43));
+
+        javax.swing.GroupLayout infoVideoLayout = new javax.swing.GroupLayout(infoVideo);
+        infoVideo.setLayout(infoVideoLayout);
+        infoVideoLayout.setHorizontalGroup(
+            infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoVideoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrollDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                    .addComponent(videoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        infoVideoLayout.setVerticalGroup(
+            infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoVideoLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(videoImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        labelFilm.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        labelFilm.setForeground(new java.awt.Color(254, 254, 254));
+        labelFilm.setText("Películas:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(videoImage, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(infoVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(infoVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(videoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)))
-                .addGap(42, 42, 42))
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(labelFilm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,13 +185,17 @@ public class Video extends javax.swing.JPanel {
         this.description.setText(description);
 
         Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(325, 215,  java.awt.Image.SCALE_SMOOTH ) ;
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
         this.videoImage.setIcon(new ImageIcon(img));
 
     }//GEN-LAST:event_videoListMouseMoved
 
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
+    }
+    
+    public void configureLanguage(ResourceBundle rb) {
+        labelFilm.setText(rb.getString("Principal.language.text"));
     }
     
     // Custom variables
@@ -153,9 +206,19 @@ public class Video extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JTextArea description;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel infoVideo;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelFilm;
+    private javax.swing.JScrollPane scrollDescription;
     private javax.swing.JLabel videoImage;
     private javax.swing.JList<String> videoList;
     // End of variables declaration//GEN-END:variables
+
+    public JPanel getInfoVideo() {
+        return infoVideo;
+    }
+    
+    public JLabel getLabelFilm() {
+        return labelFilm;
+    }
 }

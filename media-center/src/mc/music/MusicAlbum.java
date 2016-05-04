@@ -9,6 +9,7 @@ import mc.music.data.InitializerMusic;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
@@ -33,8 +34,20 @@ public class MusicAlbum extends javax.swing.JPanel {
         
         // Resize Icons
         Image backImg = ((ImageIcon)backArtist.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
+        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         backArtist.setIcon(new ImageIcon(backImg));
+        
+        // Initialize description
+        String name = albumList.getModel().getElementAt(0);
+        String description = mediaMusic.getAlbumDescription(name);
+        //System.out.println(description);
+        ImageIcon photo = mediaMusic.getAlbumPhoto(name);
+
+        this.description.setText(description);
+
+        Image img = ((ImageIcon)photo).getImage();
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
+        this.albumImage.setIcon(new ImageIcon(img));
     }
 
     MusicAlbum(String name) {
@@ -58,8 +71,20 @@ public class MusicAlbum extends javax.swing.JPanel {
         
         // Resize Icons
         Image backImg = ((ImageIcon)backArtist.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
+        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         backArtist.setIcon(new ImageIcon(backImg));
+        
+        // Initialize description
+        name = albumList.getModel().getElementAt(0);
+        String description = mediaMusic.getAlbumDescription(name);
+        //System.out.println(description);
+        ImageIcon photo = mediaMusic.getAlbumPhoto(name);
+
+        this.description.setText(description);
+
+        Image img = ((ImageIcon)photo).getImage();
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
+        this.albumImage.setIcon(new ImageIcon(img));
         
     }
 
@@ -75,8 +100,11 @@ public class MusicAlbum extends javax.swing.JPanel {
         backArtist = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         albumList = new javax.swing.JList<>();
-        artistImage = new javax.swing.JLabel();
-        description = new javax.swing.JTextField();
+        infoAlbum = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
+        albumImage = new javax.swing.JLabel();
+        labelAlbum = new javax.swing.JLabel();
 
         backArtist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
         backArtist.setContentAreaFilled(false);
@@ -88,8 +116,8 @@ public class MusicAlbum extends javax.swing.JPanel {
             }
         });
 
-        albumList.setBackground(java.awt.Color.gray);
-        albumList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
+        albumList.setBackground(java.awt.Color.darkGray);
+        albumList.setFont(new java.awt.Font("Ubuntu", 3, 21)); // NOI18N
         albumList.setForeground(new java.awt.Color(254, 254, 254));
         albumList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Cross Road", "The Circle" };
@@ -108,48 +136,72 @@ public class MusicAlbum extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(albumList);
 
-        artistImage.setPreferredSize(new java.awt.Dimension(65, 43));
+        infoAlbum.setBackground(java.awt.Color.darkGray);
+        infoAlbum.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        description.setEditable(false);
         description.setBackground(java.awt.Color.darkGray);
+        description.setColumns(20);
+        description.setFont(new java.awt.Font("Ubuntu", 3, 18)); // NOI18N
         description.setForeground(new java.awt.Color(254, 254, 254));
+        description.setLineWrap(true);
+        description.setRows(5);
+        jScrollPane1.setViewportView(description);
+
+        albumImage.setPreferredSize(new java.awt.Dimension(65, 43));
+
+        javax.swing.GroupLayout infoAlbumLayout = new javax.swing.GroupLayout(infoAlbum);
+        infoAlbum.setLayout(infoAlbumLayout);
+        infoAlbumLayout.setHorizontalGroup(
+            infoAlbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAlbumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoAlbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(albumImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        infoAlbumLayout.setVerticalGroup(
+            infoAlbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAlbumLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(albumImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+
+        labelAlbum.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        labelAlbum.setForeground(new java.awt.Color(254, 254, 254));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("mc/Bundle"); // NOI18N
+        labelAlbum.setText(bundle.getString("labelAlbum")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(artistImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)))
-                .addGap(126, 126, 126))
+                    .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(infoAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(infoAlbum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(artistImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(labelAlbum)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(48, 48, 48))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,8 +224,8 @@ public class MusicAlbum extends javax.swing.JPanel {
         
         
         Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(325, 215,  java.awt.Image.SCALE_SMOOTH ) ;  
-        this.artistImage.setIcon(new ImageIcon(img)); 
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
+        this.albumImage.setIcon(new ImageIcon(img)); 
         
     }//GEN-LAST:event_albumListMouseMoved
 
@@ -192,6 +244,11 @@ public class MusicAlbum extends javax.swing.JPanel {
         g.drawImage(background, 0, 0, null);
     }
     
+    public void configureLanguage(ResourceBundle rb) {
+        labelAlbum.setText(rb.getString("labelAlbum"));
+        //System.out.println("gola");
+    }
+    
     // Custom variables
     Image background;
     InitializerMusic mediaMusic;
@@ -199,10 +256,13 @@ public class MusicAlbum extends javax.swing.JPanel {
     // End of custom variables
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel albumImage;
     private javax.swing.JList<String> albumList;
-    private javax.swing.JLabel artistImage;
     private javax.swing.JButton backArtist;
-    private javax.swing.JTextField description;
+    private javax.swing.JTextArea description;
+    private javax.swing.JPanel infoAlbum;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelAlbum;
     // End of variables declaration//GEN-END:variables
 }

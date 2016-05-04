@@ -11,9 +11,10 @@ package mc.music.data;
  */
 public class SongInfo {
 
-    public SongInfo(String name, String album ) {
+    public SongInfo(String name, String album, String artist ) {
         this.name = name;
         this.album = album;
+        this.artist = artist; 
     }
     
     public void setAlbum(String album) {
@@ -34,6 +35,16 @@ public class SongInfo {
     
     
     private String album;
+    
+    private String artist;
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
     
     private String name;
 }

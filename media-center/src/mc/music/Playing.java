@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 /**
  *
@@ -17,18 +18,28 @@ import javazoom.jl.player.Player;
  */
 public class Playing implements Runnable{
 
-    private Player mp3Player;
+    private AdvancedPlayer mp3Player;
     private Thread playerThread;
 
 
     public void createPlayer(FileInputStream file) throws JavaLayerException{
 
-        mp3Player = new Player(file);
+        mp3Player = new AdvancedPlayer(file);
 
+        if(playerThread!=null)
+            stop();
         playerThread = new Thread(this);
         playerThread.start();
     }
 
+    public void stop() throws JavaLayerException{
+
+        //mp3Player.stop();
+        playerThread.stop();
+        
+        
+    }
+    
     public void run(){
 
         try {

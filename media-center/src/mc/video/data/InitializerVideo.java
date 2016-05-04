@@ -22,22 +22,18 @@ public class InitializerVideo {
         // Batman vs Superman
         FilmInfo v1 = new FilmInfo();
         v1.setName("Batman vs Superman");
-        v1.setDescription("Eighteen months after a destructive attack by General Zod in Metropolis from Man of Steel, Superman has become controversial. Daily Planet journalist Clark Kent, Superman's alter ego, has moved in with Lois Lane. Bruce Wayne, who has operated in Gotham City as the vigilante Batman for nearly two decades, sees Superman as a potential threat to humanity. After learning of Batman's activities, Superman also views him as a threat, and seeks to stop him via the Daily Planet articles authored by him as Kent. Wayne learns that Russian weapon-trafficker Anatoli Knyazev has been contacting LexCorp's mogul Lex Luthor. Meanwhile, Luthor tries to convince Senator June Finch to allow him to import kryptonite retrieved from the Indian Ocean following the results of Zod's terraforming attempt, claiming to use it as a deterrent against Kryptonians, but she denies the request. He also makes side dealings with Finch's subordinate and demands access to Zod's body and the Kryptonian scout ship.");
-        v1.setDescription("");
-        v1.setDescription("Eighteen months after a destructive attack by General Zod in Metropolis from Man of Steel, Superman has become controversial. Daily Planet journalist Clark Kent, Superman's alter ego, has moved in with Lois Lane. Bruce Wayne, who has operated in Gotham City as the vigilante Batman for nearly two decades, sees Superman as a potential threat to humanity. \n" +
-"\n" +
-"After learning of Batman's activities, Superman also views him as a threat, and seeks to stop him via the Daily Planet articles authored by him as Kent. Wayne learns that Russian weapon-trafficker Anatoli Knyazev has been contacting LexCorp's mogul Lex Luthor. Meanwhile, Luthor tries to convince Senator June Finch to allow him to import kryptonite retrieved from the Indian Ocean following the results of Zod's terraforming attempt, claiming to use it as a deterrent against Kryptonians, but she denies the request. He also makes side dealings with Finch's subordinate and demands access to Zod's body and the Kryptonian scout ship.");
+        v1.setDescription("Eighteen months after a destructive attack by General Zod in Metropolis from Man of Steel, Superman has become controversial. Daily Planet journalist Clark Kent, Superman's alter ego, has moved in with Lois Lane. Bruce Wayne, who has operated in Gotham City as the vigilante Batman for nearly two decades, sees Superman as a potential threat to humanity.");
         v1.setPhoto(new javax.swing.ImageIcon(getClass().getResource("/mc/video/batman.jpg")));
         videos.add(v1);
         
         // Señor de los anillos
         FilmInfo v2 = new FilmInfo();
         v2.setName("El Señor de los anillos");
-        v2.setDescription("Corred insensatos");
+        v2.setDescription("Gandalf tricks Bilbo into hosting a party for Thorin and his band of dwarves, who sing of reclaiming the Lonely Mountain and its vast treasure from the dragon Smaug. When the music ends, Gandalf unveils a map showing a secret door into the Mountain and proposes that the dumbfounded Bilbo serve as the expedition's \"burglar\". The dwarves ridicule the idea, but Bilbo, indignant, joins despite himself.");
         v2.setPhoto(new javax.swing.ImageIcon(getClass().getResource("/mc/video/anillos.jpg")));
         videos.add(v2);
         
-        videos.add(new FilmInfo("Iron Man", "No se me ocurre nada", "/mc/video/ironman.jpg"));
+        videos.add(new FilmInfo("Iron Man 3", "Genius, billionaire, and playboy Tony Stark, who has inherited the defense contractor Stark Industries from his father, is in war-torn Afghanistan with his friend and military liaison, Lieutenant Colonel James Rhodes to demonstrate the new \"Jericho\" missile. The convoy is ambushed and Stark is critically wounded by one of his own rocket propelled grenades.", "/mc/video/ironman.jpg"));
         
     }
 

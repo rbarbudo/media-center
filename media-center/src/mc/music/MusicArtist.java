@@ -9,6 +9,7 @@ import mc.music.data.InitializerMusic;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import mc.MediaCenter;
@@ -30,8 +31,19 @@ public class MusicArtist extends javax.swing.JPanel {
         
         // Resize Icons
         Image backImg = ((ImageIcon)backArtist.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
+        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         backArtist.setIcon(new ImageIcon(backImg));
+        
+        // Initialize description
+        String name = artistList.getModel().getElementAt(0);
+        String description = mediaMusic.getArtistDescription(name);
+        ImageIcon photo = mediaMusic.getArtistPhoto(name);
+
+        this.description.setText(description);
+
+        Image img = ((ImageIcon)photo).getImage();
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
+        this.artistImage.setIcon(new ImageIcon(img));
     }
 
     /**
@@ -46,10 +58,16 @@ public class MusicArtist extends javax.swing.JPanel {
         backArtist = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         artistList = new javax.swing.JList<>();
+        labelArtist = new javax.swing.JLabel();
+        infoArtist = new javax.swing.JPanel();
         artistImage = new javax.swing.JLabel();
-        description = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
+
+        setPreferredSize(new java.awt.Dimension(960, 540));
 
         backArtist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
+        backArtist.setBorderPainted(false);
         backArtist.setContentAreaFilled(false);
         backArtist.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         backArtist.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -59,8 +77,8 @@ public class MusicArtist extends javax.swing.JPanel {
             }
         });
 
-        artistList.setBackground(java.awt.Color.gray);
-        artistList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
+        artistList.setBackground(java.awt.Color.darkGray);
+        artistList.setFont(new java.awt.Font("Ubuntu", 3, 21)); // NOI18N
         artistList.setForeground(new java.awt.Color(254, 254, 254));
         artistList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Bon Jovi", "Metallica" };
@@ -79,11 +97,44 @@ public class MusicArtist extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(artistList);
 
+        labelArtist.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        labelArtist.setForeground(new java.awt.Color(254, 254, 254));
+        labelArtist.setText("Artistas:");
+
+        infoArtist.setBackground(java.awt.Color.darkGray);
+        infoArtist.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         artistImage.setPreferredSize(new java.awt.Dimension(65, 43));
 
         description.setEditable(false);
         description.setBackground(java.awt.Color.darkGray);
+        description.setColumns(20);
+        description.setFont(new java.awt.Font("Ubuntu", 3, 18)); // NOI18N
         description.setForeground(new java.awt.Color(254, 254, 254));
+        description.setLineWrap(true);
+        description.setRows(5);
+        jScrollPane1.setViewportView(description);
+
+        javax.swing.GroupLayout infoArtistLayout = new javax.swing.GroupLayout(infoArtist);
+        infoArtist.setLayout(infoArtistLayout);
+        infoArtistLayout.setHorizontalGroup(
+            infoArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoArtistLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(infoArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                    .addComponent(artistImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        infoArtistLayout.setVerticalGroup(
+            infoArtistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoArtistLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(artistImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,34 +142,33 @@ public class MusicArtist extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(artistImage, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                    .addComponent(description))
-                .addGap(126, 126, 126))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(174, 174, 174)))
+                .addGap(5, 5, 5)
+                .addComponent(infoArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(infoArtist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(artistImage, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(labelArtist)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,7 +190,7 @@ public class MusicArtist extends javax.swing.JPanel {
         
         
         Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(325, 215,  java.awt.Image.SCALE_SMOOTH ) ;  
+        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
         this.artistImage.setIcon(new ImageIcon(img)); 
         
     }//GEN-LAST:event_artistListMouseMoved
@@ -162,6 +212,10 @@ public class MusicArtist extends javax.swing.JPanel {
         g.drawImage(background, 0, 0, null);
     }
     
+    public void configureLanguage(ResourceBundle rb) {
+        labelArtist.setText(rb.getString("artistLabel"));
+    }
+    
     // Custom variables
     Image background;
     InitializerMusic mediaMusic;
@@ -171,7 +225,10 @@ public class MusicArtist extends javax.swing.JPanel {
     private javax.swing.JLabel artistImage;
     private javax.swing.JList<String> artistList;
     private javax.swing.JButton backArtist;
-    private javax.swing.JTextField description;
+    private javax.swing.JTextArea description;
+    private javax.swing.JPanel infoArtist;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelArtist;
     // End of variables declaration//GEN-END:variables
 }

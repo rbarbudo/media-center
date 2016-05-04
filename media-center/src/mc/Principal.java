@@ -12,6 +12,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import mc.music.MusicAlbum;
+import mc.music.MusicArtist;
+import mc.video.Video;
 
 /**
  *
@@ -78,6 +81,12 @@ public class Principal extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 musicMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                musicMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                musicMouseEntered(evt);
+            }
         });
 
         video.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/video.png"))); // NOI18N
@@ -87,6 +96,12 @@ public class Principal extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 videoMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                videoMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                videoMouseEntered(evt);
+            }
         });
 
         image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/image.png"))); // NOI18N
@@ -95,6 +110,12 @@ public class Principal extends javax.swing.JPanel {
         image.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imageMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imageMouseEntered(evt);
             }
         });
 
@@ -225,6 +246,44 @@ public class Principal extends javax.swing.JPanel {
         topFrame.getWindow().revalidate();
     }//GEN-LAST:event_imageMouseClicked
 
+    private void musicMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseEntered
+        // Change icon size  
+        //music.setSize(180, 180);
+        
+        //Image musicImg = ((ImageIcon)music.getIcon()).getImage();
+        //musicImg = musicImg.getScaledInstance(180, 180,  java.awt.Image.SCALE_SMOOTH ) ;  
+        //music.setIcon(new ImageIcon(musicImg)); 
+        
+        
+    }//GEN-LAST:event_musicMouseEntered
+
+    private void musicMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_musicMouseExited
+        
+        
+        //music.setSize(120, 120);
+        
+        // Change icon size
+        //Image musicImg = ((ImageIcon)music.getIcon()).getImage();
+        //musicImg = musicImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        //music.setIcon(new ImageIcon(musicImg));      
+    }//GEN-LAST:event_musicMouseExited
+
+    private void videoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_videoMouseEntered
+
+    private void videoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_videoMouseExited
+
+    private void imageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imageMouseEntered
+
+    private void imageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imageMouseExited
+
     
     @Override
     public void paintComponent(Graphics g) {
@@ -235,6 +294,11 @@ public class Principal extends javax.swing.JPanel {
         imageString.setText(rb.getString("Principal.imageString.text"));
         videoString.setText(rb.getString("Principal.videoString.text"));
         musicString.setText(rb.getString("Principal.musicString.text"));
+        
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        ((Video) topFrame.getVideo()).configureLanguage(rb);
+        ((MusicArtist) topFrame.getMusicArtists()).configureLanguage(rb);
+        ((MusicAlbum) topFrame.getMusicAlbum()).configureLanguage(rb);
     }
     
     // Custom variables
