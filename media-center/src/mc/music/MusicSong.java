@@ -9,7 +9,6 @@ import mc.music.data.InitializerMusic;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,14 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import mc.MediaCenter;
-import mc.Principal;
 
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 import mc.music.data.SongInfo;
 
 /**
@@ -34,54 +29,25 @@ import mc.music.data.SongInfo;
  * @author i22balur
  */
 public class MusicSong extends javax.swing.JPanel {
-
-    /**
-     * Creates new form MusicArtist
-     */
-    public MusicSong() {
-        
-        np = new Playing();
-        
-        mediaMusic = new InitializerMusic();
-                
-        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
-        initComponents();
-        
-        // Resize Icons
-        Image backImg = ((ImageIcon)backAlbum.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
-        backAlbum.setIcon(new ImageIcon(backImg));
-        
-        // Resize Icons
-        Image stopImg = ((ImageIcon)stop.getIcon()).getImage();
-        stopImg = stopImg.getScaledInstance(51, 51,  java.awt.Image.SCALE_SMOOTH ) ;  
-        stop.setIcon(new ImageIcon(stopImg));
-    }
-
+    
     MusicSong(String name) {
-        
-        
-        np = new Playing();
-        
+          
+        np = new Playing();      
         mediaMusic = new InitializerMusic();
         songNames = mediaMusic.filterSongNames(name);
         mediaMusic.filterSongs(name);
         background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
         initComponents();
-        
-        
-        
+     
         // Modify album list
         
         DefaultListModel model = new DefaultListModel();
         
-        for (int i= 0; i<songNames.length; i++) {
-            model.addElement(songNames[i]);
-        }
+        for (String songName : songNames)
+            model.addElement(songName);
 
         songList.setModel(model);
-
-        
+     
         // Resize Icons
         Image backImg = ((ImageIcon)backAlbum.getIcon()).getImage();
         backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
@@ -93,10 +59,13 @@ public class MusicSong extends javax.swing.JPanel {
         stop.setIcon(new ImageIcon(stopImg));
         
         // Initialize description
+        songList.setSelectedIndex(0);
+        String nameSong = songList.getModel().getElementAt(0);
         try {
-            String nameSong = songList.getModel().getElementAt(0);
+            
             SongInfo song = mediaMusic.getSong(nameSong);
-
+            this.artist = song.getArtist();
+            
             albumName.setText(song.getAlbum() + " - " + song.getArtist());
 
             String description = mediaMusic.getAlbumDescription(song.getAlbum());
@@ -122,6 +91,19 @@ public class MusicSong extends javax.swing.JPanel {
             System.out.println(err);
         }
         
+        if(mediaMusic.isLocal(nameSong)) {         
+            Image local = (new ImageIcon(getClass().getResource("/mc/hdd.png"))).getImage();
+            local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+            this.isLocal.setText("Local");
+            this.isLocal.setIcon(new ImageIcon(local));
+        }
+        else {
+            Image local = (new ImageIcon(getClass().getResource("/mc/web.png"))).getImage();
+            local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+            this.isLocal.setText("Web");
+            this.isLocal.setIcon(new ImageIcon(local));
+        }
+        
     }
 
     /**
@@ -141,6 +123,7 @@ public class MusicSong extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         albumName = new javax.swing.JLabel();
+        isLocal = new javax.swing.JLabel();
         labelSong = new javax.swing.JLabel();
         stop = new javax.swing.JButton();
 
@@ -161,11 +144,6 @@ public class MusicSong extends javax.swing.JPanel {
             String[] strings = { "Cross Road", "The Circle" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
-        });
-        songList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                songListMouseMoved(evt);
-            }
         });
         songList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -194,6 +172,12 @@ public class MusicSong extends javax.swing.JPanel {
         albumName.setForeground(new java.awt.Color(254, 254, 254));
         albumName.setText("Cross Road - Bon Jovi");
 
+        isLocal.setBackground(java.awt.Color.darkGray);
+        isLocal.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        isLocal.setForeground(new java.awt.Color(254, 254, 254));
+        isLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/hdd.png"))); // NOI18N
+        isLocal.setText("Local");
+
         javax.swing.GroupLayout infoSongLayout = new javax.swing.GroupLayout(infoSong);
         infoSong.setLayout(infoSongLayout);
         infoSongLayout.setHorizontalGroup(
@@ -203,9 +187,12 @@ public class MusicSong extends javax.swing.JPanel {
                 .addGroup(infoSongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(albumName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(infoSongLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(albumImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(infoSongLayout.createSequentialGroup()
+                        .addComponent(isLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -213,12 +200,14 @@ public class MusicSong extends javax.swing.JPanel {
             infoSongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoSongLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(albumName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(albumName, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(infoSongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(albumImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(infoSongLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(albumImage, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(isLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         labelSong.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
@@ -263,10 +252,10 @@ public class MusicSong extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(infoSong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(stop, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(stop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
@@ -280,60 +269,61 @@ public class MusicSong extends javax.swing.JPanel {
     private void backAlbumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backAlbumMouseClicked
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
         topFrame.getWindow().removeAll();
-        topFrame.getWindow().add(topFrame.getMusicAlbum());     
-        topFrame.getWindow().repaint();
+        //topFrame.getWindow().add(topFrame.getMusicAlbum());     
+        //topFrame.getWindow().repaint();
+        topFrame.getWindow().add(new MusicAlbum(artist));
         topFrame.getWindow().revalidate();
     }//GEN-LAST:event_backAlbumMouseClicked
 
-    private void songListMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songListMouseMoved
-        /*int index = songList.locationToIndex(evt.getPoint());
-        
-        if(songList.getModel().getSize()>0) {
-            String name = songList.getModel().getElementAt(index);
-            String description = mediaMusic.getDescriptionFromSong(name);
-            ImageIcon photo = mediaMusic.getAlbumFromSong(name);
-
-            this.description.setText(description);
-
-
-            Image img = ((ImageIcon)photo).getImage();
-            img = img.getScaledInstance(250, 250,  java.awt.Image.SCALE_SMOOTH ) ;  
-            this.albumImage.setIcon(new ImageIcon(img)); 
-        }*/
-    }//GEN-LAST:event_songListMouseMoved
-
     private void songListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_songListMouseClicked
         
-        
-        if(songList.getModel().getSize()>0) {
-            int index = songList.locationToIndex(evt.getPoint());
+        if(evt.getClickCount() == 2) {
+            if(songList.getModel().getSize()>0) {
+                int index = songList.locationToIndex(evt.getPoint());
 
 
-            try {
-                String name = songList.getModel().getElementAt(index);
-                URL resource = getClass().getResource("/mc/music/"+name+".mp3");
-                File file = new File(resource.toURI());
+                try {
+                    String name = songList.getModel().getElementAt(index);
+                    URL resource = getClass().getResource("/mc/music/"+name+".mp3");
+                    File file = new File(resource.toURI());
 
-                FileInputStream fis = new FileInputStream(file);;
+                    FileInputStream fis = new FileInputStream(file);;
 
-                np.createPlayer(fis);
+                    np.createPlayer(fis);
 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JavaLayerException ex) {
-                Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IndexOutOfBoundsException err) {
-                System.out.println(err);
-            } catch(NullPointerException err) {
-                 System.out.println(err);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (JavaLayerException ex) {
+                    Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(MusicSong.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IndexOutOfBoundsException err) {
+                    System.out.println(err);
+                } catch(NullPointerException err) {
+                     System.out.println(err);
+                }
+            }
+            else{
+                System.out.println("entre");
             }
         }
-        else{
-            System.out.println("entre");
-        }
+        else {
+            int index = songList.locationToIndex(evt.getPoint());
+            String nameSong = songList.getModel().getElementAt(index);
             
+            if(mediaMusic.isLocal(nameSong)) {         
+                Image local = (new ImageIcon(getClass().getResource("/mc/hdd.png"))).getImage();
+                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+                this.isLocal.setText("Local");
+                this.isLocal.setIcon(new ImageIcon(local));
+            }
+            else {
+                Image local = (new ImageIcon(getClass().getResource("/mc/web.png"))).getImage();
+                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+                this.isLocal.setText("Web");
+                this.isLocal.setIcon(new ImageIcon(local));
+            }
+        }
         
     }//GEN-LAST:event_songListMouseClicked
 
@@ -354,6 +344,7 @@ public class MusicSong extends javax.swing.JPanel {
     InitializerMusic mediaMusic;
     String [] songNames;
     Playing np;
+    String artist;
     // End of custom variables
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -362,6 +353,7 @@ public class MusicSong extends javax.swing.JPanel {
     private javax.swing.JButton backAlbum;
     private javax.swing.JTextArea description;
     private javax.swing.JPanel infoSong;
+    private javax.swing.JLabel isLocal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelSong;

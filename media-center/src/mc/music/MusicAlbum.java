@@ -20,36 +20,7 @@ import mc.MediaCenter;
  * @author i22balur
  */
 public class MusicAlbum extends javax.swing.JPanel {
-
-    /**
-     * Creates new form MusicArtist
-     */
-    public MusicAlbum() {
-        
-        mediaMusic = new InitializerMusic();
-        
-        
-        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
-        initComponents();
-        
-        // Resize Icons
-        Image backImg = ((ImageIcon)backArtist.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
-        backArtist.setIcon(new ImageIcon(backImg));
-        
-        // Initialize description
-        String name = albumList.getModel().getElementAt(0);
-        String description = mediaMusic.getAlbumDescription(name);
-        //System.out.println(description);
-        ImageIcon photo = mediaMusic.getAlbumPhoto(name);
-
-        this.description.setText(description);
-
-        Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
-        this.albumImage.setIcon(new ImageIcon(img));
-    }
-
+    
     MusicAlbum(String name) {
         mediaMusic = new InitializerMusic();
         albumNames = mediaMusic.filterAlbumNames(name);
@@ -75,6 +46,7 @@ public class MusicAlbum extends javax.swing.JPanel {
         backArtist.setIcon(new ImageIcon(backImg));
         
         // Initialize description
+        albumList.setSelectedIndex(0);
         name = albumList.getModel().getElementAt(0);
         String description = mediaMusic.getAlbumDescription(name);
         //System.out.println(description);
@@ -123,11 +95,6 @@ public class MusicAlbum extends javax.swing.JPanel {
             String[] strings = { "Cross Road", "The Circle" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
-        });
-        albumList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                albumListMouseMoved(evt);
-            }
         });
         albumList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -213,31 +180,27 @@ public class MusicAlbum extends javax.swing.JPanel {
         topFrame.getWindow().revalidate();
     }//GEN-LAST:event_backArtistMouseClicked
 
-    private void albumListMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumListMouseMoved
-        int index = albumList.locationToIndex(evt.getPoint());
-        
-        String name = albumList.getModel().getElementAt(index);
-        String description = mediaMusic.getAlbumDescription(name);
-        ImageIcon photo = mediaMusic.getAlbumPhoto(name);
-        
-        this.description.setText(description);
-        
-        
-        Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
-        this.albumImage.setIcon(new ImageIcon(img)); 
-        
-    }//GEN-LAST:event_albumListMouseMoved
-
     private void albumListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_albumListMouseClicked
+        
         int index = albumList.locationToIndex(evt.getPoint());
         String name = albumList.getModel().getElementAt(index);
-       
-        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
-        topFrame.getWindow().removeAll();
-        topFrame.getWindow().add(new MusicSong(name));
-        topFrame.getWindow().repaint();
-        topFrame.getWindow().revalidate();
+      
+        if(evt.getClickCount() == 2) {          
+            MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+            topFrame.getWindow().removeAll();
+            topFrame.getWindow().add(new MusicSong(name));
+            topFrame.getWindow().repaint();
+            topFrame.getWindow().revalidate();
+        }
+        else {
+            String description = mediaMusic.getAlbumDescription(name);
+            ImageIcon photo = mediaMusic.getAlbumPhoto(name);
+            this.description.setText(description);
+            Image img = ((ImageIcon)photo).getImage();
+            img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
+            this.albumImage.setIcon(new ImageIcon(img));
+        }        
+
     }//GEN-LAST:event_albumListMouseClicked
     
     public void paintComponent(Graphics g) {

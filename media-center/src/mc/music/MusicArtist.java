@@ -35,6 +35,7 @@ public class MusicArtist extends javax.swing.JPanel {
         backArtist.setIcon(new ImageIcon(backImg));
         
         // Initialize description
+        artistList.setSelectedIndex(0);
         String name = artistList.getModel().getElementAt(0);
         String description = mediaMusic.getArtistDescription(name);
         ImageIcon photo = mediaMusic.getArtistPhoto(name);
@@ -84,11 +85,6 @@ public class MusicArtist extends javax.swing.JPanel {
             String[] strings = { "Bon Jovi", "Metallica" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
-        });
-        artistList.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                artistListMouseMoved(evt);
-            }
         });
         artistList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,31 +176,30 @@ public class MusicArtist extends javax.swing.JPanel {
         topFrame.getWindow().revalidate();
     }//GEN-LAST:event_backArtistMouseClicked
 
-    private void artistListMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistListMouseMoved
-        int index = artistList.locationToIndex(evt.getPoint());
-        String name = artistList.getModel().getElementAt(index);
-        String description = mediaMusic.getArtistDescription(name);
-        ImageIcon photo = mediaMusic.getArtistPhoto(name);
-        
-        this.description.setText(description);
-        
-        
-        Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
-        this.artistImage.setIcon(new ImageIcon(img)); 
-        
-    }//GEN-LAST:event_artistListMouseMoved
-
     private void artistListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistListMouseClicked
+        
         int index = artistList.locationToIndex(evt.getPoint());
         String name = artistList.getModel().getElementAt(index);
-       
-        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
-        topFrame.getWindow().removeAll();
-        topFrame.setMusicAlbum(new MusicAlbum(name));
-        topFrame.getWindow().add(topFrame.getMusicAlbum());
-        topFrame.getWindow().repaint();
-        topFrame.getWindow().revalidate();
+      
+        if(evt.getClickCount() == 2) {          
+            MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+            topFrame.getWindow().removeAll();
+            //topFrame.setMusicAlbum(new MusicAlbum(name));
+            //topFrame.getWindow().add(topFrame.getMusicAlbum());
+            topFrame.getWindow().add(new MusicAlbum(name));
+            topFrame.getWindow().repaint();
+            topFrame.getWindow().revalidate();
+        }
+        else {
+            String description = mediaMusic.getArtistDescription(name);
+            ImageIcon photo = mediaMusic.getArtistPhoto(name);
+
+            this.description.setText(description);
+
+            Image img = ((ImageIcon)photo).getImage();
+            img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;  
+            this.artistImage.setIcon(new ImageIcon(img));
+        }
         
     }//GEN-LAST:event_artistListMouseClicked
     

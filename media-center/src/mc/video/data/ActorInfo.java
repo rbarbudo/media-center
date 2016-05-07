@@ -6,13 +6,12 @@
 package mc.video.data;
 
 import javax.swing.ImageIcon;
-import mc.KindMedia;
 
 /**
  *
  * @author i22balur
  */
-public class FilmInfo 
+public class ActorInfo 
 {  
     /********************************************************
      * -------------------------------------------- Variables
@@ -23,22 +22,25 @@ public class FilmInfo
     private String description;
     
     private ImageIcon photo;    
-        
-    private KindMedia kind;
     
-    public FilmInfo() {
-        
-    }
+    private String film;
+    
+    private String character;
      
     /********************************************************
      * --------------------------------------- Constructores
      *******************************************************/
     
-    public FilmInfo(String name, String description, String photoPath, KindMedia kind) {
+    public ActorInfo() {
+        
+    }
+    
+    public ActorInfo(String name, String description, String photoPath, String film, String character) {
         this.name = name;
         this.description = description;
         this.photo = new javax.swing.ImageIcon(getClass().getResource(photoPath));
-        this.kind = kind;
+        this.film = film;
+        this.character = character;
     }
 
     /********************************************************
@@ -60,9 +62,14 @@ public class FilmInfo
         return photo;
     }
 
-    public KindMedia getKind() 
+    public String getFilm() 
     {
-        return kind;
+        return film;
+    }
+    
+    public String getCharacter() 
+    {
+        return character;
     }
     
     public void setName(String name) 
@@ -80,9 +87,13 @@ public class FilmInfo
         this.photo = photo;
     }
   
-    public void setKind(KindMedia kind) 
+    public void setFilm(String film) 
     {
-        this.kind = kind;
+        this.film = film;
     }
  
+    public void setCharacter(String character) 
+    {
+        this.character = character;
+    }
 }

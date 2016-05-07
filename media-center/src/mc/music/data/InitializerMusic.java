@@ -37,12 +37,12 @@ public class InitializerMusic {
             albums.add(al1);      
             
             // Songs
-            songs.add(new SongInfo("Livin on a Prayer", "Cross Road", "Bon Jovi"));
+            songs.add(new SongInfo("Livin on a Prayer", "Cross Road", "Bon Jovi", true));
             //songs.add(new SongInfo("Always", "Cross Road"));
             //songs.add(new SongInfo("Wanted Dead or Alive", "Cross Road"));
-            songs.add(new SongInfo("Runaway", "Cross Road", "Bon Jovi"));
+            songs.add(new SongInfo("Runaway", "Cross Road", "Bon Jovi", false));
             //songs.add(new SongInfo("It's my Life", "Cross Road"));
-            songs.add(new SongInfo("You Give Love A Bad Name", "The Circle", "Bon Jovi"));
+            songs.add(new SongInfo("You Give Love A Bad Name", "The Circle", "Bon Jovi", false));
             
             // The Circle
             AlbumInfo al2 = new AlbumInfo();
@@ -75,7 +75,7 @@ public class InitializerMusic {
             al4.setArtist("Metallica");
             albums.add(al4);
         
-            songs.add(new SongInfo("Fade To Black", "Ride the lighting", "Metallica"));
+            songs.add(new SongInfo("Fade To Black", "Ride the lighting", "Metallica", true));
             
     }
 
@@ -210,4 +210,11 @@ public class InitializerMusic {
                 return songs.get(i);
         return null;
     }
+
+    public boolean isLocal(String name) {
+        for(int i=0; i<songs.size(); i++)
+            if(songs.get(i).getName().equals(name) && songs.get(i).getIsLocal())
+                return true;
+        
+        return false;    }
 }

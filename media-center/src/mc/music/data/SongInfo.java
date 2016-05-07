@@ -11,40 +11,51 @@ package mc.music.data;
  */
 public class SongInfo {
 
-    public SongInfo(String name, String album, String artist ) {
-        this.name = name;
-        this.album = album;
-        this.artist = artist; 
+    public String getAlbum() {
+        return album;
     }
-    
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public Boolean getIsLocal() {
+        return isLocal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void setAlbum(String album) {
         this.album = album;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public void setIsLocal(Boolean isLocal) {
+        this.isLocal = isLocal;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public String getName() {
-        return name;
-    }
-    
-    
     private String album;
     
     private String artist;
 
-    public String getArtist() {
-        return artist;
-    }
-
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
+    private Boolean isLocal;
     
     private String name;
+    
+    public SongInfo(String name, String album, String artist, Boolean isLocal) {
+        this.name = name;
+        this.album = album;
+        this.artist = artist; 
+        this.isLocal = isLocal;
+    }
+
 }

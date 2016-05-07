@@ -136,7 +136,6 @@ public class Principal extends javax.swing.JPanel {
         videoString.setText(bundle.getString("Principal.videoString.text")); // NOI18N
 
         language.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/spanish.png"))); // NOI18N
-        language.setText(bundle.getString("Principal.language.text")); // NOI18N
         language.setContentAreaFilled(false);
         language.setPreferredSize(new java.awt.Dimension(60, 60));
         language.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -298,7 +297,7 @@ public class Principal extends javax.swing.JPanel {
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
         ((Video) topFrame.getVideo()).configureLanguage(rb);
         ((MusicArtist) topFrame.getMusicArtists()).configureLanguage(rb);
-        ((MusicAlbum) topFrame.getMusicAlbum()).configureLanguage(rb);
+        //((MusicAlbum) topFrame.getMusicAlbum()).configureLanguage(rb);
     }
     
     // Custom variables

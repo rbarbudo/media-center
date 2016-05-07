@@ -5,12 +5,8 @@
  */
 package mc;
 
-import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import javax.swing.JPanel;
-import mc.music.MusicAlbum;
-import mc.music.MusicArtist;
-import mc.video.Video;
 
 /**
  * Main class of the system
@@ -47,27 +43,28 @@ public class MediaCenter extends javax.swing.JFrame {
     private void initComponents() {
 
         window = new javax.swing.JPanel();
-        main = new mc.Principal();
         musicArtists = new mc.music.MusicArtist();
-        video = new mc.video.Video();
-        musicAlbum = new mc.music.MusicAlbum();
         myImage = new mc.image.MyImage();
+        main = new mc.Principal();
+        video = new mc.video.Video();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Media Center");
 
+        window.setPreferredSize(new java.awt.Dimension(960, 540));
         window.setLayout(new java.awt.CardLayout());
-        window.add(main, "card6");
         window.add(musicArtists, "card4");
-        window.add(video, "card5");
-        window.add(musicAlbum, "card5");
         window.add(myImage, "card6");
+        window.add(main, "card6");
+        window.add(video, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(window, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(window, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,42 +111,39 @@ public class MediaCenter extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mc.Principal main;
-    private mc.music.MusicAlbum musicAlbum;
     private mc.music.MusicArtist musicArtists;
     private mc.image.MyImage myImage;
     private mc.video.Video video;
     private javax.swing.JPanel window;
     // End of variables declaration//GEN-END:variables
 
-    public JPanel getWindow() {
+    public JPanel getWindow() 
+    {
         return window;
     }
 
-    public void setWindow(JPanel window) {
+    public void setWindow(JPanel window) 
+    {
         this.window = window;
     }
     
-    public JPanel getMusicArtists() {
+    public JPanel getMusicArtists() 
+    {
         return musicArtists;
     }
     
-    public JPanel getVideo() {
+    public JPanel getVideo() 
+    {
         return video;
     }
 
-    public JPanel getMain() {
+    public JPanel getMain() 
+    {
         return main;
     }
-
-    public JPanel getMusicAlbum() {
-        return musicAlbum;
-    }
     
-    public void setMusicAlbum(MusicAlbum musicAlbum) {
-        this.musicAlbum = musicAlbum;
-    }
-    
-    public JPanel getMyImage() {
+    public JPanel getMyImage() 
+    {
         return myImage;
     }
 }

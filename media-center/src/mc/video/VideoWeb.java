@@ -21,10 +21,10 @@ import mc.video.data.InitializerVideo;
  *
  * @author i22balur
  */
-public class Video extends javax.swing.JPanel {
+public class VideoWeb extends javax.swing.JPanel {
 
-    
-    public Video() 
+
+    public VideoWeb() 
     {     
         mediaVideo = new InitializerVideo();
         background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
@@ -47,17 +47,7 @@ public class Video extends javax.swing.JPanel {
         Image backImg = ((ImageIcon)back.getIcon()).getImage();
         backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         back.setIcon(new ImageIcon(backImg));
-        
-        // Resize web icon
-        Image webImg = ((ImageIcon)videoWeb.getIcon()).getImage();
-        webImg = webImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
-        videoWeb.setIcon(new ImageIcon(webImg));
-        
-        // Resize web icon
-        Image actorImg = ((ImageIcon)actor.getIcon()).getImage();
-        actorImg = actorImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
-        actor.setIcon(new ImageIcon(actorImg));
-        
+            
         // Initialize description of the first film        
         videoList.setSelectedIndex(0);
         String name = videoList.getModel().getElementAt(0);
@@ -68,7 +58,6 @@ public class Video extends javax.swing.JPanel {
         img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
         this.videoImage.setIcon(new ImageIcon(img));
         
-        /*
         if(mediaVideo.isLocal(name)) {         
             Image local = (new ImageIcon(getClass().getResource("/mc/hdd.png"))).getImage();
             local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
@@ -81,7 +70,6 @@ public class Video extends javax.swing.JPanel {
             this.isLocal.setText("Web");
             this.isLocal.setIcon(new ImageIcon(local));
         }
-        */
         
     }
 
@@ -94,24 +82,23 @@ public class Video extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        actor = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         videoList = new javax.swing.JList<>();
         infoVideo = new javax.swing.JPanel();
         scrollDescription = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         videoImage = new javax.swing.JLabel();
+        isLocal = new javax.swing.JLabel();
         labelFilm = new javax.swing.JLabel();
-        back = new javax.swing.JButton();
-        videoWeb = new javax.swing.JButton();
 
-        actor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/video/actor.png"))); // NOI18N
-        actor.setContentAreaFilled(false);
-        actor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        actor.setPreferredSize(new java.awt.Dimension(80, 80));
-        actor.addMouseListener(new java.awt.event.MouseAdapter() {
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
+        back.setContentAreaFilled(false);
+        back.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        back.setPreferredSize(new java.awt.Dimension(80, 80));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                actorMouseClicked(evt);
+                backMouseClicked(evt);
             }
         });
 
@@ -150,6 +137,12 @@ public class Video extends javax.swing.JPanel {
 
         videoImage.setPreferredSize(new java.awt.Dimension(65, 43));
 
+        isLocal.setBackground(java.awt.Color.darkGray);
+        isLocal.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        isLocal.setForeground(new java.awt.Color(254, 254, 254));
+        isLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/hdd.png"))); // NOI18N
+        isLocal.setText("Local");
+
         javax.swing.GroupLayout infoVideoLayout = new javax.swing.GroupLayout(infoVideo);
         infoVideo.setLayout(infoVideoLayout);
         infoVideoLayout.setHorizontalGroup(
@@ -157,11 +150,16 @@ public class Video extends javax.swing.JPanel {
             .addGroup(infoVideoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(videoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoVideoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(scrollDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addGroup(infoVideoLayout.createSequentialGroup()
+                        .addComponent(isLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(infoVideoLayout.createSequentialGroup()
+                        .addGroup(infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(videoImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoVideoLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(scrollDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         infoVideoLayout.setVerticalGroup(
             infoVideoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +167,9 @@ public class Video extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(videoImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                .addComponent(scrollDescription)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(isLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -178,46 +178,18 @@ public class Video extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("mc/Bundle"); // NOI18N
         labelFilm.setText(bundle.getString("filmsLabel")); // NOI18N
 
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
-        back.setContentAreaFilled(false);
-        back.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        back.setPreferredSize(new java.awt.Dimension(80, 80));
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
-            }
-        });
-
-        videoWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/web.png"))); // NOI18N
-        videoWeb.setContentAreaFilled(false);
-        videoWeb.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        videoWeb.setPreferredSize(new java.awt.Dimension(80, 80));
-        videoWeb.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                videoWebMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(248, 248, 248))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(infoVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(videoWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(actor, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(infoVideo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -225,38 +197,27 @@ public class Video extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(infoVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(actor, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(videoWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
+                    .addComponent(infoVideo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(labelFilm)
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actorMouseClicked
-        int index = videoList.getSelectedIndex();
-        String name = videoList.getModel().getElementAt(index);    
-        
+    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
         topFrame.getWindow().removeAll();
-        //topFrame.setVideoActor(new VideoActors(mediaVideo,name));
-        //topFrame.getWindow().add(topFrame.getVideoActors());
-        topFrame.getWindow().add(new VideoActors(mediaVideo,name));
+        topFrame.getWindow().add(topFrame.getMain());
         topFrame.getWindow().repaint();
-        topFrame.getWindow().revalidate();        
-    }//GEN-LAST:event_actorMouseClicked
+        topFrame.getWindow().revalidate();
+    }//GEN-LAST:event_backMouseClicked
 
     private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
-        int index = videoList.getSelectedIndex();
+        int index = videoList.locationToIndex(evt.getPoint());
         String name = videoList.getModel().getElementAt(index);
         String description = mediaVideo.getVideoDescription(name);
         ImageIcon photo = mediaVideo.getVideoPhoto(name);
@@ -267,18 +228,6 @@ public class Video extends javax.swing.JPanel {
         img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
         this.videoImage.setIcon(new ImageIcon(img));
     }//GEN-LAST:event_videoListMouseClicked
-
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
-        topFrame.getWindow().removeAll();
-        topFrame.getWindow().add(topFrame.getMain());
-        topFrame.getWindow().repaint();
-        topFrame.getWindow().revalidate();
-    }//GEN-LAST:event_backMouseClicked
-
-    private void videoWebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoWebMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_videoWebMouseClicked
 
     public void paintComponent(Graphics g) 
     {
@@ -297,16 +246,15 @@ public class Video extends javax.swing.JPanel {
     // End of custom variables
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton actor;
     private javax.swing.JButton back;
     private javax.swing.JTextArea description;
     private javax.swing.JPanel infoVideo;
+    private javax.swing.JLabel isLocal;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelFilm;
     private javax.swing.JScrollPane scrollDescription;
     private javax.swing.JLabel videoImage;
     private javax.swing.JList<String> videoList;
-    private javax.swing.JButton videoWeb;
     // End of variables declaration//GEN-END:variables
 
     public JPanel getInfoVideo() 
