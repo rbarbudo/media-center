@@ -45,6 +45,11 @@ public class MusicArtist extends javax.swing.JPanel {
         Image img = ((ImageIcon)photo).getImage();
         img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
         this.artistImage.setIcon(new ImageIcon(img));
+        
+        // Resize web icon
+        Image webImg = ((ImageIcon)videoWeb.getIcon()).getImage();
+        webImg = webImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
+        videoWeb.setIcon(new ImageIcon(webImg));
     }
 
     /**
@@ -64,6 +69,7 @@ public class MusicArtist extends javax.swing.JPanel {
         artistImage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
+        videoWeb = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(960, 540));
 
@@ -78,7 +84,9 @@ public class MusicArtist extends javax.swing.JPanel {
             }
         });
 
-        artistList.setBackground(java.awt.Color.darkGray);
+        jScrollPane2.setBackground(new java.awt.Color(0,0,0,125));
+
+        artistList.setBackground(new java.awt.Color(0,0,0,175));
         artistList.setFont(new java.awt.Font("Ubuntu", 3, 21)); // NOI18N
         artistList.setForeground(new java.awt.Color(254, 254, 254));
         artistList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -86,6 +94,7 @@ public class MusicArtist extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        artistList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         artistList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 artistListMouseClicked(evt);
@@ -97,10 +106,15 @@ public class MusicArtist extends javax.swing.JPanel {
         labelArtist.setForeground(new java.awt.Color(254, 254, 254));
         labelArtist.setText("Artistas:");
 
-        infoArtist.setBackground(java.awt.Color.darkGray);
+        infoArtist.setBackground(new java.awt.Color(0,0,0,175));
         infoArtist.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         artistImage.setPreferredSize(new java.awt.Dimension(65, 43));
+
+        jScrollPane1.setBackground(new java.awt.Color(0,0,0,175));
+        jScrollPane1.setForeground(new java.awt.Color(0,0,0,175));
+        jScrollPane1.setViewportBorder(null);
+        jScrollPane1.setOpaque(false);
 
         description.setEditable(false);
         description.setBackground(java.awt.Color.darkGray);
@@ -109,6 +123,9 @@ public class MusicArtist extends javax.swing.JPanel {
         description.setForeground(new java.awt.Color(254, 254, 254));
         description.setLineWrap(true);
         description.setRows(5);
+        description.setToolTipText("");
+        description.setBorder(null);
+        description.setFocusable(false);
         jScrollPane1.setViewportView(description);
 
         javax.swing.GroupLayout infoArtistLayout = new javax.swing.GroupLayout(infoArtist);
@@ -128,9 +145,19 @@ public class MusicArtist extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(artistImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        videoWeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/web.png"))); // NOI18N
+        videoWeb.setContentAreaFilled(false);
+        videoWeb.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        videoWeb.setPreferredSize(new java.awt.Dimension(80, 80));
+        videoWeb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videoWebMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -149,22 +176,27 @@ public class MusicArtist extends javax.swing.JPanel {
                             .addComponent(labelArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(174, 174, 174)))
                 .addGap(5, 5, 5)
-                .addComponent(infoArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(infoArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(videoWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(infoArtist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(infoArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(videoWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(labelArtist)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -181,8 +213,9 @@ public class MusicArtist extends javax.swing.JPanel {
         int index = artistList.locationToIndex(evt.getPoint());
         String name = artistList.getModel().getElementAt(index);
       
-        if(evt.getClickCount() == 2) {          
+        if(evt.getClickCount() == 2) {            
             MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+            topFrame.setMusicWeb(false);
             topFrame.getWindow().removeAll();
             //topFrame.setMusicAlbum(new MusicAlbum(name));
             //topFrame.getWindow().add(topFrame.getMusicAlbum());
@@ -202,6 +235,15 @@ public class MusicArtist extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_artistListMouseClicked
+
+    private void videoWebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoWebMouseClicked
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        topFrame.setMusicWeb(true);
+        topFrame.getWindow().removeAll();
+        topFrame.getWindow().add(new MusicWeb(mediaMusic));
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
+    }//GEN-LAST:event_videoWebMouseClicked
     
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
@@ -225,5 +267,6 @@ public class MusicArtist extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelArtist;
+    private javax.swing.JButton videoWeb;
     // End of variables declaration//GEN-END:variables
 }

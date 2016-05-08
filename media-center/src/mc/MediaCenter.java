@@ -7,6 +7,7 @@ package mc;
 
 import java.awt.Toolkit;
 import javax.swing.JPanel;
+import mc.music.MusicArtist;
 
 /**
  * Main class of the system
@@ -109,6 +110,16 @@ public class MediaCenter extends javax.swing.JFrame {
         });
     }
 
+    private boolean musicWeb;
+
+    public void setMusicWeb(boolean musicWeb) {
+        this.musicWeb = musicWeb;
+    }
+
+    public boolean isMusicWeb() {
+        return musicWeb;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mc.Principal main;
     private mc.music.MusicArtist musicArtists;
@@ -131,6 +142,7 @@ public class MediaCenter extends javax.swing.JFrame {
     {
         return musicArtists;
     }
+    
     
     public JPanel getVideo() 
     {

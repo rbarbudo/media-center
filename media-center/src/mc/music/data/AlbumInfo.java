@@ -11,31 +11,8 @@ import javax.swing.ImageIcon;
  *
  * @author i22balur
  */
+
 public class AlbumInfo {
-    
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public ImageIcon getPhoto() {
-        return photo;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPhoto(ImageIcon photo) {
-        this.photo = photo;
-    }
     
     String name;
     
@@ -44,12 +21,58 @@ public class AlbumInfo {
     ImageIcon photo; 
     
     String artist;
+    
+    public AlbumInfo() 
+    {
+        
+    }
+    
+    public AlbumInfo(String name, String description, String photoPath, String artist) 
+    {
+        this.name = name;
+        this.description = description;
+        this.photo = new javax.swing.ImageIcon(getClass().getResource(photoPath));;
+        this.artist = artist;
+    }
+    
+    public String getName() 
+    {
+        return name;
+    }
 
-    public void setArtist(String artist) {
+    public String getDescription() 
+    {
+        return description;
+    }
+
+    public ImageIcon getPhoto() 
+    {
+        return photo;
+    }
+
+    public String getArtist() 
+    {
+        return artist;
+    }    
+    
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+
+    public void setDescription(String description) 
+    {
+        this.description = description;
+    }
+
+    public void setPhoto(ImageIcon photo) 
+    {
+        this.photo = photo;
+    }
+       
+    public void setArtist(String artist) 
+    {
         this.artist = artist;
     }
 
-    public String getArtist() {
-        return artist;
-    }
 }

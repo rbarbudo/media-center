@@ -73,7 +73,7 @@ public class VideoActors extends javax.swing.JPanel {
         labelActor = new javax.swing.JLabel();
         back = new javax.swing.JButton();
 
-        actorList.setBackground(java.awt.Color.darkGray);
+        actorList.setBackground(new java.awt.Color(0,0,0,175));
         actorList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
         actorList.setForeground(new java.awt.Color(254, 254, 254));
         actorList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -88,7 +88,7 @@ public class VideoActors extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(actorList);
 
-        infoActor.setBackground(java.awt.Color.darkGray);
+        infoActor.setBackground(new java.awt.Color(0,0,0,175));
         infoActor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         scrollDescription.setBorder(new javax.swing.border.MatteBorder(null));

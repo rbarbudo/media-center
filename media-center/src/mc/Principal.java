@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import mc.image.MyImage;
 import mc.music.MusicAlbum;
 import mc.music.MusicArtist;
 import mc.video.Video;
@@ -35,19 +36,19 @@ public class Principal extends javax.swing.JPanel {
         
         // Resize Icons
         Image musicImg = ((ImageIcon)music.getIcon()).getImage();
-        musicImg = musicImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        musicImg = musicImg.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH ) ;  
         music.setIcon(new ImageIcon(musicImg));
 
         Image videoImg = ((ImageIcon)video.getIcon()).getImage();
-        videoImg = videoImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        videoImg = videoImg.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH ) ;  
         video.setIcon(new ImageIcon(videoImg)); 
         
         Image imageImg = ((ImageIcon)image.getIcon()).getImage();
-        imageImg = imageImg.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH ) ;  
+        imageImg = imageImg.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH ) ;  
         image.setIcon(new ImageIcon(imageImg)); 
         
         Image languageImg = ((ImageIcon)language.getIcon()).getImage();
-        languageImg = languageImg.getScaledInstance(60, 60,  java.awt.Image.SCALE_SMOOTH ) ;  
+        languageImg = languageImg.getScaledInstance(75, 75,  java.awt.Image.SCALE_SMOOTH ) ;  
         language.setIcon(new ImageIcon(languageImg)); 
         
     }
@@ -68,6 +69,9 @@ public class Principal extends javax.swing.JPanel {
         musicString = new javax.swing.JLabel();
         videoString = new javax.swing.JLabel();
         language = new javax.swing.JButton();
+        dock = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jLabel1 = new javax.swing.JLabel();
 
         setBorder(null);
         setOpaque(false);
@@ -119,18 +123,18 @@ public class Principal extends javax.swing.JPanel {
             }
         });
 
-        imageString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        imageString.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         imageString.setForeground(new java.awt.Color(254, 254, 254));
         imageString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("mc/Bundle"); // NOI18N
         imageString.setText(bundle.getString("Principal.imageString.text")); // NOI18N
 
-        musicString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        musicString.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         musicString.setForeground(new java.awt.Color(254, 254, 254));
         musicString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         musicString.setText(bundle.getString("Principal.musicString.text")); // NOI18N
 
-        videoString.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        videoString.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         videoString.setForeground(new java.awt.Color(254, 254, 254));
         videoString.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         videoString.setText(bundle.getString("Principal.videoString.text")); // NOI18N
@@ -149,50 +153,82 @@ public class Principal extends javax.swing.JPanel {
             }
         });
 
+        dock.setText(bundle.getString("Principal.dock.text")); // NOI18N
+
+        jLabel1.setText(bundle.getString("Principal.jLabel1.text")); // NOI18N
+
+        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(jLabel1)
+                .addContainerGap(202, Short.MAX_VALUE))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 171, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(103, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(musicString, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(94, 94, 94)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(125, 125, 125)
-                                .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(103, 103, 103)
-                                .addComponent(imageString, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(147, 147, 147))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                    .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(musicString, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(79, 79, 79)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(imageString)
+                        .addGap(127, 127, 127))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dock)
+                            .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(78, 78, 78)
+                        .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(182, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dock)
+                .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(video, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(image, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(music, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(musicString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imageString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65)
-                .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                    .addComponent(imageString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(videoString, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addComponent(language, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -297,7 +333,7 @@ public class Principal extends javax.swing.JPanel {
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
         ((Video) topFrame.getVideo()).configureLanguage(rb);
         ((MusicArtist) topFrame.getMusicArtists()).configureLanguage(rb);
-        //((MusicAlbum) topFrame.getMusicAlbum()).configureLanguage(rb);
+        ((MyImage) topFrame.getMyImage()).configureLanguage(rb);
     }
     
     // Custom variables
@@ -307,8 +343,11 @@ public class Principal extends javax.swing.JPanel {
     // End of custom variables
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dock;
     private javax.swing.JButton image;
     private javax.swing.JLabel imageString;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JButton language;
     private javax.swing.JButton music;
     private javax.swing.JLabel musicString;

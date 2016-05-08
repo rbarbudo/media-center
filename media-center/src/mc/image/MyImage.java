@@ -5,11 +5,16 @@
  */
 package mc.image;
 
+import java.awt.FlowLayout;
 import mc.video.*;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import mc.MediaCenter;
 import mc.image.data.InitializerImage;
@@ -26,14 +31,20 @@ public class MyImage extends javax.swing.JPanel {
      */
     public MyImage() {
         
-        mediaImage = new InitializerImage();
-        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
-        
         initComponents();
+        jPanel1.setLayout(new FlowLayout());
+      
+        imagesList.setSelectedIndex(0);
+        int index = imagesList.getSelectedIndex();
+        String album = imagesList.getModel().getElementAt(index);
         
+        updatePanel(album,6);
+    
+        background = new ImageIcon(Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/wallpaper.jpg")))).getImage();
+  
         // Resize Icons
         Image backImg = ((ImageIcon)back.getIcon()).getImage();
-        backImg = backImg.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH ) ;  
+        backImg = backImg.getScaledInstance(55, 55,  java.awt.Image.SCALE_SMOOTH ) ;  
         back.setIcon(new ImageIcon(backImg));
     }
 
@@ -49,7 +60,8 @@ public class MyImage extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         imagesList = new javax.swing.JList<>();
-        imagePhoto = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        labelAlbum = new javax.swing.JLabel();
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mc/back.png"))); // NOI18N
         back.setContentAreaFilled(false);
@@ -61,11 +73,11 @@ public class MyImage extends javax.swing.JPanel {
             }
         });
 
-        imagesList.setBackground(java.awt.Color.gray);
+        imagesList.setBackground(new java.awt.Color(0,0,0,175));
         imagesList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
         imagesList.setForeground(new java.awt.Color(254, 254, 254));
         imagesList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Playa", "Campo" };
+            String[] strings = { "Verano 2015", "Campo 2016" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -74,39 +86,55 @@ public class MyImage extends javax.swing.JPanel {
                 imagesListMouseMoved(evt);
             }
         });
+        imagesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imagesListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(imagesList);
 
-        imagePhoto.setPreferredSize(new java.awt.Dimension(65, 43));
+        jPanel1.setBackground(new java.awt.Color(0,0,0,175));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
+        jPanel1.setLayout(new java.awt.GridLayout());
+
+        labelAlbum.setFont(new java.awt.Font("Ubuntu", 3, 36)); // NOI18N
+        labelAlbum.setForeground(new java.awt.Color(254, 254, 254));
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("mc/Bundle"); // NOI18N
+        labelAlbum.setText(bundle.getString("labelAlbum")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addComponent(imagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(imagePhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(labelAlbum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -119,19 +147,52 @@ public class MyImage extends javax.swing.JPanel {
     }//GEN-LAST:event_backMouseClicked
 
     private void imagesListMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagesListMouseMoved
-        int index = imagesList.locationToIndex(evt.getPoint());
-        String name = imagesList.getModel().getElementAt(index);
-
-        ImageIcon photo = mediaImage.getImagePhoto(name);
-
-        Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(400, 400,  java.awt.Image.SCALE_SMOOTH ) ;
-        this.imagePhoto.setIcon(new ImageIcon(img));
-
+        
     }//GEN-LAST:event_imagesListMouseMoved
+
+    private void imagesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagesListMouseClicked
+        int index = imagesList.getSelectedIndex();
+        String album = imagesList.getModel().getElementAt(index);
+        jPanel1.removeAll();
+        updatePanel(album, 6);
+    }//GEN-LAST:event_imagesListMouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        JPanel photo = (JPanel) evt.getComponent();
+        JLabel label = (JLabel) photo.getComponentAt(evt.getPoint());
+       
+        
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        topFrame.getWindow().removeAll();
+        topFrame.getWindow().add(new Watching("/mc/image/"+label.getName()));
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
+    }
+    
+    public void configureLanguage(ResourceBundle rb) 
+    {
+        labelAlbum.setText(rb.getString("labelAlbum"));
+    }
+    
+    void updatePanel(String album, int nPictures) {
+        JLabel[] pics = new JLabel[nPictures];
+        
+        for(int i=0; i<nPictures; i++) {
+            Image img = Toolkit.getDefaultToolkit().getImage((getClass().getResource("/mc/image/"+ album + "-" + i + ".jpg"))); 
+            img = img.getScaledInstance(150, 100,  java.awt.Image.SCALE_SMOOTH ) ; 
+            pics[i] = new JLabel();
+            pics[i].setIcon(new ImageIcon(img));
+            pics[i].setName(album+"-"+i+".jpg");
+        }
+        
+        for (JLabel pic : pics) {
+            jPanel1.add(pic);
+        }
+        jPanel1.revalidate();
     }
     
     // Custom variables
@@ -141,8 +202,9 @@ public class MyImage extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
-    private javax.swing.JLabel imagePhoto;
     private javax.swing.JList<String> imagesList;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelAlbum;
     // End of variables declaration//GEN-END:variables
 }

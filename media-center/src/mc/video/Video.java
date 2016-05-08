@@ -115,7 +115,7 @@ public class Video extends javax.swing.JPanel {
             }
         });
 
-        videoList.setBackground(java.awt.Color.darkGray);
+        videoList.setBackground(new java.awt.Color(0,0,0,175));
         videoList.setFont(new java.awt.Font("Ubuntu", 0, 21)); // NOI18N
         videoList.setForeground(new java.awt.Color(254, 254, 254));
         videoList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -130,9 +130,10 @@ public class Video extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(videoList);
 
-        infoVideo.setBackground(java.awt.Color.darkGray);
+        infoVideo.setBackground(new java.awt.Color(0,0,0,175));
         infoVideo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        scrollDescription.setBackground(new java.awt.Color(0,0,0,125));
         scrollDescription.setBorder(new javax.swing.border.MatteBorder(null));
 
         description.setEditable(false);
@@ -143,9 +144,10 @@ public class Video extends javax.swing.JPanel {
         description.setLineWrap(true);
         description.setRows(5);
         description.setAutoscrolls(false);
-        description.setBorder(new javax.swing.border.LineBorder(java.awt.Color.gray, 2, true));
+        description.setBorder(null);
         description.setDisabledTextColor(new java.awt.Color(254, 254, 254));
         description.setFocusable(false);
+        description.setMargin(new java.awt.Insets(5, 5, 5, 5));
         scrollDescription.setViewportView(description);
 
         videoImage.setPreferredSize(new java.awt.Dimension(65, 43));
@@ -258,14 +260,24 @@ public class Video extends javax.swing.JPanel {
     private void videoListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoListMouseClicked
         int index = videoList.getSelectedIndex();
         String name = videoList.getModel().getElementAt(index);
-        String description = mediaVideo.getVideoDescription(name);
-        ImageIcon photo = mediaVideo.getVideoPhoto(name);
+        
+        if(evt.getClickCount() == 2) {
+            MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+            topFrame.getWindow().removeAll();
+            topFrame.getWindow().add(new Playing());
+            topFrame.getWindow().repaint();
+            topFrame.getWindow().revalidate();
+        }
+        else {
+            String description = mediaVideo.getVideoDescription(name);
+            ImageIcon photo = mediaVideo.getVideoPhoto(name);
 
-        this.description.setText(description);
+            this.description.setText(description);
 
-        Image img = ((ImageIcon)photo).getImage();
-        img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
-        this.videoImage.setIcon(new ImageIcon(img));
+            Image img = ((ImageIcon)photo).getImage();
+            img = img.getScaledInstance(520, 260,  java.awt.Image.SCALE_SMOOTH ) ;
+            this.videoImage.setIcon(new ImageIcon(img));
+        }
     }//GEN-LAST:event_videoListMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
@@ -277,7 +289,13 @@ public class Video extends javax.swing.JPanel {
     }//GEN-LAST:event_backMouseClicked
 
     private void videoWebMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videoWebMouseClicked
-        // TODO add your handling code here:
+        MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
+        topFrame.getWindow().removeAll();
+        //topFrame.setVideoActor(new VideoActors(mediaVideo,name));
+        //topFrame.getWindow().add(topFrame.getVideoActors());
+        topFrame.getWindow().add(new VideoWeb(mediaVideo));
+        topFrame.getWindow().repaint();
+        topFrame.getWindow().revalidate();
     }//GEN-LAST:event_videoWebMouseClicked
 
     public void paintComponent(Graphics g) 

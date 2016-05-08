@@ -88,7 +88,7 @@ public class MusicAlbum extends javax.swing.JPanel {
             }
         });
 
-        albumList.setBackground(java.awt.Color.darkGray);
+        albumList.setBackground(new java.awt.Color(0,0,0,175));
         albumList.setFont(new java.awt.Font("Ubuntu", 3, 21)); // NOI18N
         albumList.setForeground(new java.awt.Color(254, 254, 254));
         albumList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -103,7 +103,7 @@ public class MusicAlbum extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(albumList);
 
-        infoAlbum.setBackground(java.awt.Color.darkGray);
+        infoAlbum.setBackground(new java.awt.Color(0,0,0,175));
         infoAlbum.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         description.setBackground(java.awt.Color.darkGray);
@@ -175,7 +175,10 @@ public class MusicAlbum extends javax.swing.JPanel {
     private void backArtistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backArtistMouseClicked
         MediaCenter topFrame = (MediaCenter) SwingUtilities.getWindowAncestor(this);
         topFrame.getWindow().removeAll();
-        topFrame.getWindow().add(topFrame.getMusicArtists());
+        if(topFrame.isMusicWeb())
+            topFrame.getWindow().add(new MusicWeb(mediaMusic));
+        else
+            topFrame.getWindow().add(topFrame.getMusicArtists());
         topFrame.getWindow().repaint();
         topFrame.getWindow().revalidate();
     }//GEN-LAST:event_backArtistMouseClicked

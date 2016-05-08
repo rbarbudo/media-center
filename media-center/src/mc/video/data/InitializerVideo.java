@@ -36,7 +36,11 @@ public class InitializerVideo
         // Señor de los anillos - Local
         videos.add(new FilmInfo("El Señor de los anillos", "Gandalf tricks Bilbo into hosting a party for Thorin and his band of dwarves, who sing of reclaiming the Lonely Mountain and its vast treasure from the dragon Smaug. When the music ends, Gandalf unveils a map showing a secret door into the Mountain and proposes that the dumbfounded Bilbo serve as the expedition's \"burglar\". The dwarves ridicule the idea, but Bilbo, indignant, joins despite himself.", "/mc/video/anillos.jpg", KindMedia.LOCAL));
         // Iron Man 3 - Web
-        videos.add(new FilmInfo("Iron Man 3", "Genius, billionaire, and playboy Tony Stark, who has inherited the defense contractor Stark Industries from his father, is in war-torn Afghanistan with his friend and military liaison, Lieutenant Colonel James Rhodes to demonstrate the new \"Jericho\" missile. The convoy is ambushed and Stark is critically wounded by one of his own rocket propelled grenades.", "/mc/video/ironman.jpg", KindMedia.RECOMMENDED));  
+        videos.add(new FilmInfo("Iron Man 3", "Genius, billionaire, and playboy Tony Stark, who has inherited the defense contractor Stark Industries from his father, is in war-torn Afghanistan with his friend and military liaison, Lieutenant Colonel James Rhodes to demonstrate the new \"Jericho\" missile. The convoy is ambushed and Stark is critically wounded by one of his own rocket propelled grenades.", "/mc/video/ironman.jpg", KindMedia.NEW));  
+        // The Avengers - Web
+        videos.add(new FilmInfo("Los Vengadores", "Marvel's The Avengers[4] (classified under the name Marvel Avengers Assemble in the United Kingdom and Ireland),[1][5] or simply The Avengers, is a 2012 American superhero film based on the Marvel Comics superhero team of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.1 It is the sixth film in the Marvel Cinematic Universe. The film was written and directed by Joss Whedon", "/mc/video/avengers.jpg", KindMedia.RECOMMENDED));  
+        
+        
         
         // Christian Bale
         actors.add(new ActorInfo("Christian Bale", "Christian Charles Philip Bale (born 30 January 1974) is an English actor. He has starred in both blockbuster films and smaller projects from independent producers and art houses. Bale first caught the public eye at the age of 13, when he was cast in the starring role of Steven Spielberg's Empire of the Sun (1987).", "/mc/video/bale.jpg", "Batman vs Superman", "Bruce Wayne"));
@@ -125,6 +129,36 @@ public class InitializerVideo
                 return true;
         
         return false;
+    }
+
+    public String[] filterRecommendedFilms() {
+        List<String> localFilms = new ArrayList<String>();
+        
+        for(int i=0; i<videos.size(); i++)
+            if(videos.get(i).getKind() == KindMedia.RECOMMENDED)
+                localFilms.add(videos.get(i).getName());
+        
+        String [] names = new String [localFilms.size()];
+        
+        for(int i=0; i<localFilms.size(); i++)
+            names[i] = localFilms.get(i);
+        
+        return names;
+    }
+
+    public String[] filterNewFilms() {
+        List<String> localFilms = new ArrayList<String>();
+        
+        for(int i=0; i<videos.size(); i++)
+            if(videos.get(i).getKind() == KindMedia.NEW)
+                localFilms.add(videos.get(i).getName());
+        
+        String [] names = new String [localFilms.size()];
+        
+        for(int i=0; i<localFilms.size(); i++)
+            names[i] = localFilms.get(i);
+        
+        return names;
     }
     
 }

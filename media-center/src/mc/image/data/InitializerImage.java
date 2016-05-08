@@ -18,18 +18,7 @@ public class InitializerImage {
     List<ImageInfo> images = new ArrayList<ImageInfo>();
     
     public InitializerImage() {
-    
-        
-        ImageInfo img1 = new ImageInfo();
-        img1.setName("Playa");
-        img1.setPhoto(new javax.swing.ImageIcon(getClass().getResource("/mc/image/beach.jpg")));
-        images.add(img1);
-        
-        ImageInfo img2 = new ImageInfo();
-        img2.setName("Campo");
-        img2.setPhoto(new javax.swing.ImageIcon(getClass().getResource("/mc/image/campo.jpg")));
-        images.add(img2);
-        
+   
     }
 
 
