@@ -304,19 +304,25 @@ public class MusicSong extends javax.swing.JPanel {
         else {
             int index = songList.locationToIndex(evt.getPoint());
             String nameSong = songList.getModel().getElementAt(index);
-            
+            /*
             if(mediaMusic.isLocal(nameSong)) {         
                 Image local = (new ImageIcon(getClass().getResource("/mc/hdd.png"))).getImage();
-                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ; 
+                this.isLocal.setVisible(false);
                 this.isLocal.setText("Local");
                 this.isLocal.setIcon(new ImageIcon(local));
+                this.isLocal.revalidate();
+                this.isLocal.setVisible(true);
             }
             else {
                 Image local = (new ImageIcon(getClass().getResource("/mc/web.png"))).getImage();
-                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;            
+                local = local.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+                this.isLocal.revalidate();
                 this.isLocal.setText("Web");
                 this.isLocal.setIcon(new ImageIcon(local));
+                
             }
+            */
         }
         
     }//GEN-LAST:event_songListMouseClicked
